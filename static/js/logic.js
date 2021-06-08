@@ -29,25 +29,27 @@ var map = L.map("mapid", {
 // adding one 'graymap' tile layer to the map.
 graymap_background.addTo(map);
 
-// Define baseMaps Object to Hold Base Layers
+// layers for two different sets of data, earthquakes and tectonicplates.
+var tectonicplates = new L.LayerGroup();
+var earthquakes = new L.LayerGroup();
+
+// base layers
 var baseMaps = {
-    "Satellite": satelliteMap,
-    "Grayscale": grayscaleMap,
-    "Outdoors": outdoorsMap
+  Satellite: satellitemap_background,
+  Grayscale: graymap_background,
+  Outdoors: outdoors_background
 };
 
-// Create Overlay Object to Hold Overlay Layers
+// overlays 
 var overlayMaps = {
-    "Earthquakes": earthquakes,
-    "Fault Lines": tectonicPlates
+  "Tectonic Plates": tectonicplates,
+  "Earthquakes": earthquakes
 };
 
-// Create Map, Passing In satelliteMap & earthquakes as Default Layers to Display on Load
-var myMap = L.map("map", {
-    center: [37.09, -95.71],
-    zoom: 2,
-    layers: [satelliteMap, earthquakes]
-});
+// control which layers are visible.
+L
+  .control
+  .layers(baseMaps, overlayMaps)
+  .addTo(map);
 
-// Create a Layer Control + Pass in baseMaps and overlayMaps + Add the Layer Control to the Map
-L.control.layers(baseMaps, overlayMaps).addTo(myMap);
+  
