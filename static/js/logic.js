@@ -34,3 +34,19 @@ var baseMaps = {
     "Grayscale": grayscaleMap,
     "Outdoors": outdoorsMap
 };
+
+// Create Overlay Object to Hold Overlay Layers
+var overlayMaps = {
+    "Earthquakes": earthquakes,
+    "Fault Lines": tectonicPlates
+};
+
+// Create Map, Passing In satelliteMap & earthquakes as Default Layers to Display on Load
+var myMap = L.map("map", {
+    center: [37.09, -95.71],
+    zoom: 2,
+    layers: [satelliteMap, earthquakes]
+});
+
+// Create a Layer Control + Pass in baseMaps and overlayMaps + Add the Layer Control to the Map
+L.control.layers(baseMaps, overlayMaps).addTo(myMap);
